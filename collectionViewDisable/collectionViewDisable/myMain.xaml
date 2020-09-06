@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="collectionViewDisable.myMain"
+    BackgroundColor="White" >
+    <ContentPage.Resources>
+        <Style TargetType="Grid">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="LightSkyBlue" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <Grid x:Name="Grid_Details" BackgroundColor="Transparent" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" Padding="10, 35, 10, 10" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+                <StackLayout x:Name="ScrollViewMain" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="FillAndExpand" BackgroundColor="Transparent">
+                    <CollectionView x:Name="CollectionView" SelectionMode="Single" SelectionChanged="CollectionView_SelectionChanged">
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout Orientation="Vertical" Span="4"/>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Padding="5,5,5,10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image
+                                           
+                                             Grid.Column="0"
+                                            Grid.Row="0"
+                                           Source="{Binding ItemImageURL}"
+                                           Aspect="AspectFill"
+                                           HorizontalOptions="CenterAndExpand"
+                                           VerticalOptions="CenterAndExpand"/>
+                                    <Label 
+                                            
+                                            Grid.Column="0"
+                                            Grid.Row="1"
+                                            Text="{Binding ItemTitle}"
+                                            FontAttributes="Bold" 
+                                            HorizontalTextAlignment="Center"
+                                        />
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                        <CollectionView.GroupHeaderTemplate>
+                            <DataTemplate>
+                                <Label Text="{Binding Name}"
+                                   FontSize="Large"
+                                   FontAttributes="Bold"
+                                       TextColor="Gray" Padding="5,0,0,0"/>
+                            </DataTemplate>
+                        </CollectionView.GroupHeaderTemplate>
+                    </CollectionView>
+                </StackLayout>
+            </Grid>
+            <ContentView x:Name="overlayToast" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" IsVisible="False" Padding="2, 0" VerticalOptions="End">
+                <Frame x:Name="toastframe" Padding="0" CornerRadius="10" IsClippedToBounds="True" HasShadow="True" Margin="10,0,10,35">
+                    <StackLayout HorizontalOptions="FillAndExpand">
+                        <StackLayout x:Name="toastSTL" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="400" HeightRequest="40">
+                            <Label x:Name="toastlbl" FontSize="14" HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="White"/>
+                        </StackLayout>
+                    </StackLayout>
+                </Frame>
+            </ContentView>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>
